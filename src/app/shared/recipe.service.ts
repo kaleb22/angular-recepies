@@ -1,4 +1,5 @@
 import { Injectable, EventEmitter } from '@angular/core';
+import { Ingredient } from '../model/ingredient.model';
 import { Recipe } from '../model/recipe.model';
 
 @Injectable({
@@ -11,8 +12,27 @@ export class RecipeService {
   recipeSelected = new EventEmitter<Recipe>();
 
   private recipes: Recipe[] = [
-    new Recipe('test', 'testing component', 'https://i2.wp.com/www.downshiftology.com/wp-content/uploads/2018/12/Shakshuka-19.jpg'),
-    new Recipe('test 2', 'testing component 111111', 'https://i2.wp.com/www.downshiftology.com/wp-content/uploads/2018/12/Shakshuka-19.jpg')
+    new Recipe(
+      'Cheeseburguer',
+      'A delecious burguer',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Cheeseburger.png/1024px-Cheeseburger.png',
+      [
+        new Ingredient('meat', 1),
+        new Ingredient('cheese', 2),
+        new Ingredient('letucce', 1),
+        new Ingredient('bread', 1)
+      ]
+    ),
+    new Recipe(
+      'Carbonara',
+      'the most incredible dish ever made',
+      'https://cadareceita.com.br/wp-content/uploads/2020/09/carbonara-cadareceita-1.jpg',
+      [
+        new Ingredient('pasta', 1),
+        new Ingredient('eggs', 3),
+        new Ingredient('bacon', 1)
+      ]
+    )
   ];
 
   getRecipes() {
