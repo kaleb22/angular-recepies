@@ -1,13 +1,14 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { Ingredient } from '../model/ingredient.model';
 import { Recipe } from '../model/recipe.model';
+import { ShoppingListService } from './shopping-list.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RecipeService {
 
-  constructor() { }
+  constructor(private slService: ShoppingListService) { }
 
   recipeSelected = new EventEmitter<Recipe>();
 
@@ -38,5 +39,9 @@ export class RecipeService {
   getRecipes() {
     // with slice, a copy of the original array will be returned and not the reference to the recipe array itself.
     return this.recipes.slice();
+  }
+
+  addIngredientsToShoppingList(ings: Ingredient[]) {
+    this.slService.addIngredients(ings);
   }
 }
