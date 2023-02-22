@@ -1,4 +1,5 @@
-import { EventEmitter, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 import { Ingredient } from '../model/ingredient.model';
 
 @Injectable({
@@ -13,19 +14,17 @@ export class ShoppingListService {
     new Ingredient('bananas', 10)
   ];
 
-  ingredientsChanged = new EventEmitter<Ingredient[]>();
-
-  getIngredients() {
-    return this.ingredients.slice();
-  }
+  //action stream
+  private ingredientsSelectedSubject = new BehaviorSubject<Ingredient[]>(this.ingredients);
+  ingredientsSelectedAction$ = this.ingredientsSelectedSubject.asObservable();
 
   addIngredient(ing: Ingredient) {
     this.ingredients.push(ing);
-    this.ingredientsChanged.emit(this.ingredients.slice());
+    this.ingredientsSelectedSubject.next(this.ingredients.slice());
   }
 
   addIngredients(ings: Ingredient[]) {
     this.ingredients.push(...ings);
-    this.ingredientsChanged.emit(this.ingredients.slice());
+    this.ingredientsSelectedSubject.next(this.ingredients.slice());
   }
 }
